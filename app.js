@@ -12,6 +12,8 @@ const buttonEl = document.querySelector('#reset');
 const messageEl = document.querySelector('#message');
 
 /*----------------------------- Event Listeners -----------------------------*/
+containerEl.addEventListener('click', handleClick);
+buttonEl.addEventListener('click', reset);
 
 /*-------------------------------- Functions --------------------------------*/
 function init() {
@@ -24,6 +26,11 @@ function init() {
 	}
 	console.log(gameBoard);
 }
+
+function handleClick(e) {}
+
+function reset() {}
+
 
 init();
 
