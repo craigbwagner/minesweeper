@@ -5,6 +5,7 @@ let time;
 let won;
 let lost;
 let gameBoard;
+let width = 9;
 
 /*------------------------ Cached Element References ------------------------*/
 const boardEl = document.querySelector('.gameboard');
@@ -32,6 +33,7 @@ function init() {
 	}
 
 	placeBombs();
+	bombCounter();
 
 	render();
 
@@ -74,7 +76,66 @@ function bombTotal() {
 }
 
 //functions for updating square values based on bordering bomb counts
-function bombCounter() {}
+function bombCounter() {
+	gameBoard.forEach((square, index) => {
+		if (square.value !== 'bomb') {
+			let bombCounter = 0;
+			const isLeftEdge = index % width === 0;
+			const isRightEdge = index % width === width - 1;
+
+			if (
+				index > 8 &&
+				!isLeftEdge &&
+				gameBoard.at(index - 1 - width).value === 'bomb'
+			) {
+				bombCounter++;
+			}
+			if (index > 8 && gameBoard.at(index - width).value === 'bomb') {
+				bombCounter++;
+			}
+			if (
+				index > 8 &&
+				!isRightEdge &&
+				gameBoard.at(index - width + 1).value === 'bomb'
+			) {
+				bombCounter++;
+			}
+			if (
+				index > 0 &&
+				!isLeftEdge &&
+				gameBoard.at(index - 1).value === 'bomb'
+			) {
+				bombCounter++;
+			}
+			if (
+				index > 0 &&
+				!isRightEdge &&
+				gameBoard.at(index + 1).value === 'bomb'
+			) {
+				bombCounter++;
+			}
+			if (
+				index < 72 &&
+				!isLeftEdge &&
+				gameBoard.at(index + width - 1).value === 'bomb'
+			) {
+				bombCounter++;
+			}
+			if (index < 72 && gameBoard.at(index + width).value === 'bomb') {
+				bombCounter++;
+			}
+			if (
+				index < 72 &&
+				!isRightEdge &&
+				gameBoard.at(index + width + 1).value === 'bomb'
+			) {
+				bombCounter++;
+			}
+
+			square.value = bombCounter;
+		}
+	});
+}
 
 //flooding function
 
@@ -86,5 +147,3 @@ function reset() {}
 //initialization
 
 init();
-
-console.log(squareEls);
