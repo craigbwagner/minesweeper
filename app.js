@@ -7,7 +7,7 @@ let lost;
 let gameBoard;
 
 /*------------------------ Cached Element References ------------------------*/
-const containerEl = document.querySelector('.gameboard');
+const boardEl = document.querySelector('.gameboard');
 const buttonEl = document.querySelector('#reset');
 const messageEl = document.querySelector('#message');
 
@@ -25,6 +25,8 @@ function init() {
 		gameBoard[i] = { revealed: false, value: '' };
 	}
 	console.log(gameBoard);
+
+	boardEl.addEventListener('click', handleClick);
 }
 
 function handleClick(e) {}
