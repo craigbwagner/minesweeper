@@ -11,6 +11,13 @@ const boardEl = document.querySelector('.gameboard');
 const buttonEl = document.querySelector('#reset');
 const messageEl = document.querySelector('#message');
 
+for (let i = 0; i < 81; i++) {
+	const sqrEl = document.createElement('div');
+	sqrEl.className = 'sqr';
+	boardEl.appendChild(sqrEl);
+}
+
+const squareEls = document.querySelectorAll('.sqr');
 /*----------------------------- Event Listeners -----------------------------*/
 buttonEl.addEventListener('click', reset);
 
@@ -21,16 +28,35 @@ function init() {
 	lost = false;
 	gameBoard = new Array(81);
 	for (let i = 0; i < 81; i++) {
-		gameBoard[i] = { revealed: false, value: '' };
+		gameBoard[i] = { revealed: true, value: '' };
 	}
 
 	placeBombs();
+
+	render();
 
 	console.log(gameBoard);
 
 	boardEl.addEventListener('click', handleClick);
 }
 
+//rendering functions
+function render() {
+	updateBoard();
+	updateMessage();
+}
+
+function updateBoard() {
+	gameBoard.forEach((square, index) => {
+		if (square.revealed === true) {
+			squareEls[index].textContent = square.value;
+		}
+	});
+}
+
+function updateMessage() {}
+
+//functions relevant to bomb placement and count
 function placeBombs() {
 	let bombs = bombTotal();
 	while (bombs < 10) {
@@ -46,14 +72,19 @@ function bombTotal() {
 	});
 	return bombs.length;
 }
+
+//functions for updating square values based on bordering bomb counts
+function bombCounter() {}
+
+//flooding function
+
+//functions for interactivity
 function handleClick(e) {}
 
 function reset() {}
 
+//initialization
+
 init();
 
-for (let i = 0; i < 81; i++) {
-	const sqrEl = document.createElement('div');
-	sqrEl.className = 'sqr';
-	boardEl.appendChild(sqrEl);
-}
+console.log(squareEls);
