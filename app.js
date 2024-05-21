@@ -12,7 +12,6 @@ const buttonEl = document.querySelector('#reset');
 const messageEl = document.querySelector('#message');
 
 /*----------------------------- Event Listeners -----------------------------*/
-containerEl.addEventListener('click', handleClick);
 buttonEl.addEventListener('click', reset);
 
 /*-------------------------------- Functions --------------------------------*/
@@ -24,20 +23,37 @@ function init() {
 	for (let i = 0; i < 81; i++) {
 		gameBoard[i] = { revealed: false, value: '' };
 	}
+
+	placeBombs();
+
 	console.log(gameBoard);
 
 	boardEl.addEventListener('click', handleClick);
 }
 
+function placeBombs() {
+	let bombs = countBombs();
+	while (bombs < 10) {
+		let index = Math.floor(Math.random() * 80);
+		gameBoard[index].value = 'bomb';
+		bombs = countBombs();
+	}
+}
+
+function countBombs() {
+	let bombs = gameBoard.filter((el) => {
+		return el.value === 'bomb';
+	});
+	return bombs.length;
+}
 function handleClick(e) {}
 
 function reset() {}
-
 
 init();
 
 for (let i = 0; i < 81; i++) {
 	const sqrEl = document.createElement('div');
 	sqrEl.className = 'sqr';
-	containerEl.appendChild(sqrEl);
+	boardEl.appendChild(sqrEl);
 }
