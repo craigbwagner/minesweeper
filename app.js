@@ -32,15 +32,15 @@ function init() {
 }
 
 function placeBombs() {
-	let bombs = countBombs();
+	let bombs = bombTotal();
 	while (bombs < 10) {
 		let index = Math.floor(Math.random() * 80);
 		gameBoard[index].value = 'bomb';
-		bombs = countBombs();
+		bombs = bombTotal();
 	}
 }
 
-function countBombs() {
+function bombTotal() {
 	let bombs = gameBoard.filter((el) => {
 		return el.value === 'bomb';
 	});
