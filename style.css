@@ -26,7 +26,7 @@ button {
     margin: 0;
     padding: 0;
     min-width: 500px;
-    min-height: 200px;
+    max-width: 600px;
     border: 0px;
 }
 
@@ -37,5 +37,5 @@ button {
     align-items: center;
     justify-content: center;
     aspect-ratio: 1;
-    background-color: rgb(156, 156, 156);
+    background-color: rgb(95, 95, 95);
 }

@@ -53,6 +53,7 @@ function updateBoard() {
 	gameBoard.forEach((square, index) => {
 		if (square.revealed === true) {
 			squareEls[index].textContent = square.value;
+            squareEls[index].style.backgroundColor = 'rgb(150, 150, 150)';
 		}
 	});
 }
