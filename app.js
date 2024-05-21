@@ -15,11 +15,6 @@ const messageEl = document.querySelector('#message');
 
 /*-------------------------------- Functions --------------------------------*/
 function init() {
-	for (let i = 0; i < 81; i++) {
-		const sqrEl = document.createElement('div');
-		sqrEl.className = 'sqr';
-		containerEl.appendChild(sqrEl);
-	}
 	time = 0;
 	won = false;
 	lost = false;
@@ -31,3 +26,9 @@ function init() {
 }
 
 init();
+
+for (let i = 0; i < 81; i++) {
+	const sqrEl = document.createElement('div');
+	sqrEl.className = 'sqr';
+	containerEl.appendChild(sqrEl);
+}
