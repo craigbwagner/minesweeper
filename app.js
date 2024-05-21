@@ -148,6 +148,11 @@ function handleClick(e) {
 	if (gameBoard[e.target.id].revealed !== true) {
 		gameBoard[e.target.id].revealed = true;
 	}
+
+	if (gameBoard[e.target.id].value === '') {
+		flood(e);
+	}
+
 	checkForBomb(e);
 	checkForWin();
 
@@ -165,6 +170,9 @@ function checkForBomb(e) {
 function checkForWin() {}
 
 //flooding function
+// function flood(e) {
+// 	console.log('flood');
+// }
 
 //initialization
 
