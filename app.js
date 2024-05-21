@@ -132,8 +132,9 @@ function bombCounter() {
 			) {
 				bombCounter++;
 			}
-
-			square.value = bombCounter;
+            if (bombCounter > 0) {
+				square.value = bombCounter;
+			}
 		}
 	});
 }
