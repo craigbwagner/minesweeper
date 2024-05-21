@@ -1,9 +1,31 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 {
+    color: black;
+}
+
+h2 {
+    color: black;
+}
+
+button {
+    width: 30px;
+    margin: 30px;
+}
+
 .gameboard {
     display: grid;
     grid-template-rows: auto auto auto auto auto auto auto auto auto;
     grid-template-columns: auto auto auto auto auto auto auto auto auto;
     margin: 0;
     padding: 0;
+    min-width: 500px;
+    min-height: 200px;
 }
 
 .sqr {
@@ -11,4 +33,5 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    aspect-ratio: 1;
 }
