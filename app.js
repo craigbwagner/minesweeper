@@ -31,6 +31,8 @@ function init() {
 	gameBoard = new Array(81);
 	for (let i = 0; i < 81; i++) {
 		gameBoard[i] = { revealed: false, value: '' };
+		squareEls[i].style.backgroundColor = 'rgb(95, 95, 95)';
+		squareEls[i].textContent = '';
 	}
 
 	placeBombs();
@@ -53,7 +55,7 @@ function updateBoard() {
 	gameBoard.forEach((square, index) => {
 		if (square.revealed === true) {
 			squareEls[index].textContent = square.value;
-            squareEls[index].style.backgroundColor = 'rgb(150, 150, 150)';
+			squareEls[index].style.backgroundColor = 'rgb(150, 150, 150)';
 		}
 	});
 }
@@ -133,13 +135,12 @@ function bombCounter() {
 			) {
 				bombCounter++;
 			}
-            if (bombCounter > 0) {
+			if (bombCounter > 0) {
 				square.value = bombCounter;
 			}
 		}
 	});
 }
-
 
 //functions for interactivity
 function handleClick(e) {
@@ -147,8 +148,21 @@ function handleClick(e) {
 	if (gameBoard[e.target.id].revealed !== true) {
 		gameBoard[e.target.id].revealed = true;
 	}
+	checkForBomb(e);
+	checkForWin();
+
 	render();
 }
+
+function checkForBomb(e) {
+	if (gameBoard[e.target.id].value === 'bomb') {
+		lost = true;
+		boardEl.removeEventListener('click', handleClick);
+		messageEl.textContent = 'You lose!';
+	}
+}
+
+function checkForWin() {}
 
 //flooding function
 
