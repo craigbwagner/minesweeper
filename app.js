@@ -15,12 +15,13 @@ const messageEl = document.querySelector('#message');
 for (let i = 0; i < 81; i++) {
 	const sqrEl = document.createElement('div');
 	sqrEl.className = 'sqr';
+	sqrEl.id = i;
 	boardEl.appendChild(sqrEl);
 }
 
 const squareEls = document.querySelectorAll('.sqr');
 /*----------------------------- Event Listeners -----------------------------*/
-buttonEl.addEventListener('click', reset);
+buttonEl.addEventListener('click', init);
 
 /*-------------------------------- Functions --------------------------------*/
 function init() {
@@ -29,7 +30,7 @@ function init() {
 	lost = false;
 	gameBoard = new Array(81);
 	for (let i = 0; i < 81; i++) {
-		gameBoard[i] = { revealed: true, value: '' };
+		gameBoard[i] = { revealed: false, value: '' };
 	}
 
 	placeBombs();
@@ -137,12 +138,17 @@ function bombCounter() {
 	});
 }
 
-//flooding function
 
 //functions for interactivity
-function handleClick(e) {}
+function handleClick(e) {
+	console.log(squareEls);
+	if (gameBoard[e.target.id].revealed !== true) {
+		gameBoard[e.target.id].revealed = true;
+	}
+	render();
+}
 
-function reset() {}
+//flooding function
 
 //initialization
 
