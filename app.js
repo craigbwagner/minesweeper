@@ -8,6 +8,8 @@ let gameBoard;
 
 /*------------------------ Cached Element References ------------------------*/
 const containerEl = document.querySelector('.gameboard');
+const buttonEl = document.querySelector('#reset');
+const messageEl = document.querySelector('#message');
 
 /*----------------------------- Event Listeners -----------------------------*/
 
