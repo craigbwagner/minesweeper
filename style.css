@@ -25,17 +25,21 @@ button {
     grid-template-columns: auto auto auto auto auto auto auto auto auto;
     margin: 0;
     padding: 0;
-    min-width: 500px;
-    max-width: 600px;
+    min-width: 400px;
+    min-height: 400px;
     border: 0px;
 }
 
 .sqr {
-    border: .5px solid;
-    border-radius: 2px;
+    border: 1px solid;
+    border-radius: 1px;
     display: flex;
     align-items: center;
     justify-content: center;
     aspect-ratio: 1;
     background-color: rgb(95, 95, 95);
+    max-width: 50px;
+    max-height: 50px;
+    min-width: 20px;
+    min-height: 20px;
 }
