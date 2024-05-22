@@ -30,7 +30,7 @@ function init() {
 	time = 0;
 	won = false;
 	lost = false;
-	gameBoard = new Array(81);
+	gameBoard = new Array(width * width);
 	for (let i = 0; i < 81; i++) {
 		gameBoard[i] = { revealed: false, value: '' };
 		squareEls[i].style.backgroundColor = 'rgb(95, 95, 95)';
@@ -169,7 +169,13 @@ function handleClick(e) {
 
 function handleRightClick(e) {
 	e.preventDefault();
-	squareEls[e.target.id].textContent = 'X';
+	let squareIndex = Number(e.target.id);
+
+	if (squareEls[squareIndex].textContent === '') {
+		squareEls[squareIndex].textContent = 'X';
+	} else {
+		squareEls[squareIndex].textContent = '';
+	}
 }
 
 function revealSquare(index) {
@@ -191,7 +197,8 @@ function checkForWin() {
 	const revealedSquares = gameBoard.filter((square) => {
 		return square.revealed === true && square.value !== 'bomb';
 	});
-	if (revealedSquares.length === 90) {
+	console.log(revealedSquares.length);
+	if (revealedSquares.length === 71) {
 		won = true;
 		boardEl.removeEventListener('click', handleClick);
 		boardEl.removeEventListener('click', handleRightClick);
