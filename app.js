@@ -21,14 +21,15 @@ for (let i = 0; i < 81; i++) {
 
 const squareEls = document.querySelectorAll('.sqr');
 /*----------------------------- Event Listeners -----------------------------*/
-buttonEl.addEventListener('click', init);
+buttonEl.addEventListener('click', reset);
+boardEl.addEventListener('click', handleClick);
+boardEl.addEventListener('contextmenu', handleRightClick);
 
 /*-------------------------------- Functions --------------------------------*/
 function init() {
 	time = 0;
 	won = false;
 	lost = false;
-	messageEl.textContent = '';
 	gameBoard = new Array(81);
 	for (let i = 0; i < 81; i++) {
 		gameBoard[i] = { revealed: false, value: '' };
@@ -40,16 +41,11 @@ function init() {
 	bombCounter();
 
 	render();
-
-	console.log(gameBoard);
-
-	boardEl.addEventListener('click', handleClick);
-	boardEl.addEventListener('contextmenu', handleRightClick);
 }
-
 //rendering functions
 function render() {
 	updateBoard();
+	updateMessage();
 }
 
 function updateBoard() {
@@ -160,7 +156,6 @@ function bombCounter() {
 function handleClick(e) {
 	revealSquare(e.target.id);
 	checkForBomb(e.target.id);
-	checkForWin();
 	if (gameBoard[e.target.id].value === '') {
 		flood(e.target.id);
 	}
@@ -242,6 +237,13 @@ function flood(index) {
 		revealSquare(numIndex + width);
 		flood(numIndex + width);
 	}
+}
+
+function reset() {
+	boardEl.addEventListener('click', handleClick);
+	boardEl.addEventListener('contextmenu', handleRightClick);
+	messageEl.textContent = '';
+	init();
 }
 
 //initialization
