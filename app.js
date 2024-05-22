@@ -49,7 +49,6 @@ function init() {
 //rendering functions
 function render() {
 	updateBoard();
-	updateMessage();
 }
 
 function updateBoard() {
@@ -60,8 +59,6 @@ function updateBoard() {
 		}
 	});
 }
-
-function updateMessage() {}
 
 //functions relevant to bomb placement and count
 function placeBombs() {
@@ -85,54 +82,61 @@ function bombCounter() {
 	gameBoard.forEach((square, index) => {
 		if (square.value !== 'bomb') {
 			let bombCounter = 0;
-			const isLeftEdge = index % width === 0;
-			const isRightEdge = index % width === width - 1;
+			const numIndex = Number(index);
+			const isLeftEdge = numIndex % width === 0;
+			const isRightEdge = numIndex % width === width - 1;
 
 			if (
-				index > 8 &&
+				numIndex > 8 &&
 				!isLeftEdge &&
-				gameBoard.at(index - 1 - width).value === 'bomb'
+				gameBoard.at(numIndex - 1 - width).value === 'bomb'
 			) {
 				bombCounter++;
 			}
-			if (index > 8 && gameBoard.at(index - width).value === 'bomb') {
+			if (
+				numIndex > 8 &&
+				gameBoard.at(numIndex - width).value === 'bomb'
+			) {
 				bombCounter++;
 			}
 			if (
-				index > 8 &&
+				numIndex > 8 &&
 				!isRightEdge &&
-				gameBoard.at(index - width + 1).value === 'bomb'
+				gameBoard.at(numIndex - width + 1).value === 'bomb'
 			) {
 				bombCounter++;
 			}
 			if (
-				index > 0 &&
+				numIndex > 0 &&
 				!isLeftEdge &&
-				gameBoard.at(index - 1).value === 'bomb'
+				gameBoard.at(numIndex - 1).value === 'bomb'
 			) {
 				bombCounter++;
 			}
 			if (
-				index > 0 &&
+				numIndex > 0 &&
 				!isRightEdge &&
-				gameBoard.at(index + 1).value === 'bomb'
+				gameBoard.at(numIndex + 1).value === 'bomb'
 			) {
 				bombCounter++;
 			}
 			if (
-				index < 72 &&
+				numIndex < 72 &&
 				!isLeftEdge &&
-				gameBoard.at(index + width - 1).value === 'bomb'
+				gameBoard.at(numIndex + width - 1).value === 'bomb'
 			) {
 				bombCounter++;
 			}
-			if (index < 72 && gameBoard.at(index + width).value === 'bomb') {
+			if (
+				numIndex < 72 &&
+				gameBoard.at(numIndex + width).value === 'bomb'
+			) {
 				bombCounter++;
 			}
 			if (
-				index < 72 &&
+				numIndex < 72 &&
 				!isRightEdge &&
-				gameBoard.at(index + width + 1).value === 'bomb'
+				gameBoard.at(numIndex + width + 1).value === 'bomb'
 			) {
 				bombCounter++;
 			}
@@ -151,10 +155,6 @@ function handleClick(e) {
 	if (gameBoard[e.target.id].value === '') {
 		flood(e.target.id);
 	}
-
-function revealSquare(e) {
-	if (gameBoard[e.target.id].revealed !== true) {
-		gameBoard[e.target.id].revealed = true;
 }
 
 function revealSquare(index) {
