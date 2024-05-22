@@ -171,7 +171,17 @@ function checkForBomb(index) {
 	}
 }
 
-function checkForWin() {}
+function checkForWin() {
+	gameBoard.reduce((acc, square) => {
+		if (square.revealed && square.value !== 'bomb') {
+			acc++;
+			if (acc === 90) {
+				won = true;
+				boardEl.removeEventListener('click', handleClick);
+			}
+		}
+	});
+}
 
 //flooding function
 function flood(index) {
