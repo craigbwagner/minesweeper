@@ -28,6 +28,7 @@ function init() {
 	time = 0;
 	won = false;
 	lost = false;
+	messageEl.textContent = '';
 	gameBoard = new Array(81);
 	for (let i = 0; i < 81; i++) {
 		gameBoard[i] = { revealed: false, value: '' };
