@@ -8,6 +8,7 @@ let gameBoard;
 let width = 9;
 
 /*------------------------ Cached Element References ------------------------*/
+const bodyEl = document.querySelector('body');
 const boardEl = document.querySelector('.gameboard');
 const buttonEl = document.querySelector('#reset');
 const messageEl = document.querySelector('#message');
@@ -188,6 +189,7 @@ function revealSquare(index) {
 function checkForBomb(index) {
 	if (gameBoard[index].value === 'bomb') {
 		lost = true;
+		bodyEl.style.backgroundColor = 'red';
 		boardEl.removeEventListener('click', handleClick);
 		boardEl.removeEventListener('click', handleRightClick);
 	}
@@ -254,6 +256,7 @@ function reset() {
 	boardEl.addEventListener('click', handleClick);
 	boardEl.addEventListener('contextmenu', handleRightClick);
 	messageEl.textContent = '';
+	bodyEl.style.backgroundColor = 'white';
 	init();
 }
 
