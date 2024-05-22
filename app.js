@@ -156,6 +156,7 @@ function handleClick(e) {
 	if (gameBoard[e.target.id].value === '') {
 		flood(e.target.id);
 	}
+	checkForWin();
 	render();
 }
 
@@ -175,20 +176,19 @@ function checkForBomb(index) {
 	if (gameBoard[index].value === 'bomb') {
 		lost = true;
 		boardEl.removeEventListener('click', handleClick);
-		messageEl.textContent = 'You lose!';
+		boardEl.removeEventListener('click', handleRightClick);
 	}
 }
 
 function checkForWin() {
-	gameBoard.reduce((acc, square) => {
-		if (square.revealed && square.value !== 'bomb') {
-			acc++;
-			if (acc === 90) {
-				won = true;
-				boardEl.removeEventListener('click', handleClick);
-			}
-		}
+	const revealedSquares = gameBoard.filter((square) => {
+		return square.revealed === true && square.value !== 'bomb';
 	});
+	if (revealedSquares.length === 90) {
+		won = true;
+		boardEl.removeEventListener('click', handleClick);
+		boardEl.removeEventListener('click', handleRightClick);
+	}
 }
 
 //flooding function
