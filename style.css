@@ -19,6 +19,11 @@ button {
     margin: 30px;
 }
 
+img {
+    max-width: 40px;
+    max-height: 40px;
+}
+
 .gameboard {
     display: grid;
     grid-template-rows: auto auto auto auto auto auto auto auto auto;

@@ -53,6 +53,10 @@ function updateBoard() {
 		if (square.revealed === true) {
 			squareEls[index].textContent = square.value;
 			squareEls[index].style.backgroundColor = 'rgb(150, 150, 150)';
+			if (square.value === 'bomb') {
+				squareEls[index].innerHTML =
+					"<img src='./assets/bomb-png-46599.png'></img>";
+			}
 		}
 	});
 }
