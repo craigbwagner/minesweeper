@@ -145,6 +145,15 @@ function bombCounter() {
 //functions for interactivity
 function handleClick(e) {
 	console.log(squareEls);
+
+	revealSquare();
+	checkForBomb(e);
+	checkForWin();
+
+	render();
+}
+
+function revealSquare(e) {
 	if (gameBoard[e.target.id].revealed !== true) {
 		gameBoard[e.target.id].revealed = true;
 	}
@@ -152,11 +161,6 @@ function handleClick(e) {
 	if (gameBoard[e.target.id].value === '') {
 		flood(e);
 	}
-
-	checkForBomb(e);
-	checkForWin();
-
-	render();
 }
 
 function checkForBomb(e) {
@@ -170,9 +174,9 @@ function checkForBomb(e) {
 function checkForWin() {}
 
 //flooding function
-// function flood(e) {
-// 	console.log('flood');
-// }
+function flood(e) {
+	console.log('flood');
+}
 
 //initialization
 
