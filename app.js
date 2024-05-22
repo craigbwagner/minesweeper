@@ -61,6 +61,14 @@ function updateBoard() {
 	});
 }
 
+function updateMessage() {
+	if (won === true) {
+		messageEl.textContent = 'You win!';
+	} else if (lost === true) {
+		messageEl.textContent = 'You lose!';
+	}
+}
+
 //functions relevant to bomb placement and count
 function placeBombs() {
 	let bombs = bombTotal();
