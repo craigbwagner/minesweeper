@@ -144,27 +144,27 @@ function bombCounter() {
 
 //functions for interactivity
 function handleClick(e) {
-	console.log(squareEls);
-
-	revealSquare();
-	checkForBomb(e);
+	revealSquare(e.target.id);
+	checkForBomb(e.target.id);
 	checkForWin();
-
-	render();
-}
+	if (gameBoard[e.target.id].value === '') {
+		flood(e.target.id);
+	}
 
 function revealSquare(e) {
 	if (gameBoard[e.target.id].revealed !== true) {
 		gameBoard[e.target.id].revealed = true;
-	}
+}
 
-	if (gameBoard[e.target.id].value === '') {
-		flood(e);
+function revealSquare(index) {
+	if (gameBoard[index].revealed !== true) {
+		gameBoard[index].revealed = true;
+		render();
 	}
 }
 
-function checkForBomb(e) {
-	if (gameBoard[e.target.id].value === 'bomb') {
+function checkForBomb(index) {
+	if (gameBoard[index].value === 'bomb') {
 		lost = true;
 		boardEl.removeEventListener('click', handleClick);
 		messageEl.textContent = 'You lose!';
@@ -174,8 +174,48 @@ function checkForBomb(e) {
 function checkForWin() {}
 
 //flooding function
-function flood(e) {
-	console.log('flood');
+function flood(index) {
+	const numIndex = Number(index);
+	const isLeftEdge = numIndex % width === 0;
+	const isRightEdge = numIndex % width === width - 1;
+	if (gameBoard[numIndex].value !== '') {
+		return 1;
+	}
+
+	if (
+		numIndex >= width &&
+		gameBoard.at(numIndex - width).value !== 'bomb' &&
+		gameBoard.at(numIndex - width).revealed === false
+	) {
+		revealSquare(numIndex - width);
+		flood(numIndex - width);
+	}
+	if (
+		numIndex > 0 &&
+		!isLeftEdge &&
+		gameBoard.at(numIndex - 1).value !== 'bomb' &&
+		gameBoard.at(numIndex - 1).revealed === false
+	) {
+		revealSquare(numIndex - 1);
+		flood(numIndex - 1);
+	}
+	if (
+		numIndex > 0 &&
+		!isRightEdge &&
+		gameBoard.at(numIndex + 1).value !== 'bomb' &&
+		gameBoard.at(numIndex + 1).revealed === false
+	) {
+		revealSquare(numIndex + 1);
+		flood(numIndex + 1);
+	}
+	if (
+		numIndex < 72 &&
+		gameBoard.at(numIndex + width).value !== 'bomb' &&
+		gameBoard.at(numIndex + width).revealed === false
+	) {
+		revealSquare(numIndex + width);
+		flood(numIndex + width);
+	}
 }
 
 //initialization
