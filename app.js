@@ -44,6 +44,7 @@ function init() {
 	console.log(gameBoard);
 
 	boardEl.addEventListener('click', handleClick);
+	boardEl.addEventListener('contextmenu', handleRightClick);
 }
 
 //rendering functions
@@ -155,6 +156,12 @@ function handleClick(e) {
 	if (gameBoard[e.target.id].value === '') {
 		flood(e.target.id);
 	}
+	render();
+}
+
+function handleRightClick(e) {
+	e.preventDefault();
+	squareEls[e.target.id].textContent = 'X';
 }
 
 function revealSquare(index) {
