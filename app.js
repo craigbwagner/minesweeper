@@ -166,13 +166,16 @@ function surroundingBombCounter() {
 
 //functions for interactivity
 function handleClick(e) {
-	revealSquare(e.target.id);
-	checkForBomb(e.target.id);
-	if (gameBoard[e.target.id].value === '') {
-		flood(e.target.id);
+	if (e.target.className === 'sqr') {
+		const squareIndex = Number(e.target.id);
+		revealSquare(squareIndex);
+		checkForBomb(squareIndex);
+		if (gameBoard[squareIndex].value === '') {
+			flood(squareIndex);
+		}
+		checkForWin();
+		render();
 	}
-	checkForWin();
-	render();
 }
 
 function handleRightClick(e) {
@@ -187,15 +190,13 @@ function handleRightClick(e) {
 }
 
 function revealSquare(index) {
-	const numIndex = Number(index);
-	if (gameBoard[numIndex].revealed !== true) {
-		gameBoard[numIndex].revealed = true;
+	if (gameBoard[index].revealed !== true) {
+		gameBoard[index].revealed = true;
 		render();
 	}
 }
 
 function checkForBomb(index) {
-	const numIndex = Number(index);
 	if (gameBoard[index].value === 'bomb') {
 		lost = true;
 		bodyEl.style.backgroundColor = 'red';
@@ -217,46 +218,45 @@ function checkForWin() {
 
 //flooding function
 function flood(index) {
-	const numIndex = Number(index);
-	const isLeftEdge = numIndex % width === 0;
-	const isRightEdge = numIndex % width === width - 1;
-	if (gameBoard[numIndex].value !== '') {
+	const isLeftEdge = index % width === 0;
+	const isRightEdge = index % width === width - 1;
+	if (gameBoard[index].value !== '') {
 		return 1;
 	}
 
 	if (
-		numIndex >= width &&
-		gameBoard.at(numIndex - width).value !== 'bomb' &&
-		gameBoard.at(numIndex - width).revealed === false
+		index >= width &&
+		gameBoard.at(index - width).value !== 'bomb' &&
+		gameBoard.at(index - width).revealed === false
 	) {
-		revealSquare(numIndex - width);
-		flood(numIndex - width);
+		revealSquare(index - width);
+		flood(index - width);
 	}
 	if (
-		numIndex > 0 &&
+		index > 0 &&
 		!isLeftEdge &&
-		gameBoard.at(numIndex - 1).value !== 'bomb' &&
-		gameBoard.at(numIndex - 1).revealed === false
+		gameBoard.at(index - 1).value !== 'bomb' &&
+		gameBoard.at(index - 1).revealed === false
 	) {
-		revealSquare(numIndex - 1);
-		flood(numIndex - 1);
+		revealSquare(index - 1);
+		flood(index - 1);
 	}
 	if (
-		numIndex > 0 &&
+		index > 0 &&
 		!isRightEdge &&
-		gameBoard.at(numIndex + 1).value !== 'bomb' &&
-		gameBoard.at(numIndex + 1).revealed === false
+		gameBoard.at(index + 1).value !== 'bomb' &&
+		gameBoard.at(index + 1).revealed === false
 	) {
-		revealSquare(numIndex + 1);
-		flood(numIndex + 1);
+		revealSquare(index + 1);
+		flood(index + 1);
 	}
 	if (
-		numIndex < gameBoard.length - width &&
-		gameBoard.at(numIndex + width).value !== 'bomb' &&
-		gameBoard.at(numIndex + width).revealed === false
+		index < gameBoard.length - width &&
+		gameBoard.at(index + width).value !== 'bomb' &&
+		gameBoard.at(index + width).revealed === false
 	) {
-		revealSquare(numIndex + width);
-		flood(numIndex + width);
+		revealSquare(index + width);
+		flood(index + width);
 	}
 }
 
