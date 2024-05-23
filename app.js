@@ -6,23 +6,22 @@ let won;
 let lost;
 let gameBoard;
 let width = 9;
+let bombsPlaced = 10;
 
 /*------------------------ Cached Element References ------------------------*/
 const bodyEl = document.querySelector('body');
 const boardEl = document.querySelector('.gameboard');
-const buttonEl = document.querySelector('#reset');
+const resetBtnEl = document.querySelector('#reset');
 const messageEl = document.querySelector('#message');
-
-for (let i = 0; i < 81; i++) {
-	const sqrEl = document.createElement('div');
-	sqrEl.className = 'sqr';
-	sqrEl.id = i;
-	boardEl.appendChild(sqrEl);
-}
-
-const squareEls = document.querySelectorAll('.sqr');
+const easyBtnEl = document.querySelector('#easy');
+const mediumBtnEl = document.querySelector('#medium');
+const hardBtnEl = document.querySelector('#hard');
+let squareEls;
 /*----------------------------- Event Listeners -----------------------------*/
-buttonEl.addEventListener('click', reset);
+resetBtnEl.addEventListener('click', reset);
+easyBtnEl.addEventListener('click', changeDifficulty);
+mediumBtnEl.addEventListener('click', changeDifficulty);
+hardBtnEl.addEventListener('click', changeDifficulty);
 boardEl.addEventListener('click', handleClick);
 boardEl.addEventListener('contextmenu', handleRightClick);
 
@@ -31,15 +30,25 @@ function init() {
 	time = 0;
 	won = false;
 	lost = false;
+
+	for (let i = 0; i < width * width; i++) {
+		const sqrEl = document.createElement('div');
+		sqrEl.className = 'sqr';
+		sqrEl.id = i;
+		boardEl.appendChild(sqrEl);
+	}
+
+	squareEls = document.querySelectorAll('.sqr');
+
 	gameBoard = new Array(width * width);
-	for (let i = 0; i < 81; i++) {
+	for (let i = 0; i < width * width; i++) {
 		gameBoard[i] = { revealed: false, value: '' };
 		squareEls[i].style.backgroundColor = 'rgb(95, 95, 95)';
 		squareEls[i].textContent = '';
 	}
 
 	placeBombs();
-	bombCounter();
+	surroundingBombCounter();
 
 	render();
 }
@@ -73,8 +82,8 @@ function updateMessage() {
 //functions relevant to bomb placement and count
 function placeBombs() {
 	let bombs = bombTotal();
-	while (bombs < 10) {
-		let index = Math.floor(Math.random() * 80);
+	while (bombs < bombsPlaced) {
+		let index = Math.floor(Math.random() * width * width - 1);
 		gameBoard[index].value = 'bomb';
 		bombs = bombTotal();
 	}
@@ -88,7 +97,7 @@ function bombTotal() {
 }
 
 //functions for updating square values based on bordering bomb counts
-function bombCounter() {
+function surroundingBombCounter() {
 	gameBoard.forEach((square, index) => {
 		if (square.value !== 'bomb') {
 			let bombCounter = 0;
@@ -97,20 +106,20 @@ function bombCounter() {
 			const isRightEdge = numIndex % width === width - 1;
 
 			if (
-				numIndex > 8 &&
+				numIndex > width - 1 &&
 				!isLeftEdge &&
 				gameBoard.at(numIndex - 1 - width).value === 'bomb'
 			) {
 				bombCounter++;
 			}
 			if (
-				numIndex > 8 &&
+				numIndex > width - 1 &&
 				gameBoard.at(numIndex - width).value === 'bomb'
 			) {
 				bombCounter++;
 			}
 			if (
-				numIndex > 8 &&
+				numIndex > width - 1 &&
 				!isRightEdge &&
 				gameBoard.at(numIndex - width + 1).value === 'bomb'
 			) {
@@ -131,20 +140,20 @@ function bombCounter() {
 				bombCounter++;
 			}
 			if (
-				numIndex < 72 &&
+				numIndex < width * width - width &&
 				!isLeftEdge &&
 				gameBoard.at(numIndex + width - 1).value === 'bomb'
 			) {
 				bombCounter++;
 			}
 			if (
-				numIndex < 72 &&
+				numIndex < width * width - width &&
 				gameBoard.at(numIndex + width).value === 'bomb'
 			) {
 				bombCounter++;
 			}
 			if (
-				numIndex < 72 &&
+				numIndex < width * width - width &&
 				!isRightEdge &&
 				gameBoard.at(numIndex + width + 1).value === 'bomb'
 			) {
@@ -180,8 +189,9 @@ function handleRightClick(e) {
 }
 
 function revealSquare(index) {
-	if (gameBoard[index].revealed !== true) {
-		gameBoard[index].revealed = true;
+	const numIndex = Number(index);
+	if (gameBoard[numIndex].revealed !== true) {
+		gameBoard[numIndex].revealed = true;
 		render();
 	}
 }
@@ -199,8 +209,7 @@ function checkForWin() {
 	const revealedSquares = gameBoard.filter((square) => {
 		return square.revealed === true && square.value !== 'bomb';
 	});
-	console.log(revealedSquares.length);
-	if (revealedSquares.length === 71) {
+	if (revealedSquares.length === width * width - bombTotal()) {
 		won = true;
 		boardEl.removeEventListener('click', handleClick);
 		boardEl.removeEventListener('click', handleRightClick);
@@ -243,7 +252,7 @@ function flood(index) {
 		flood(numIndex + 1);
 	}
 	if (
-		numIndex < 72 &&
+		numIndex < gameBoard.length - width &&
 		gameBoard.at(numIndex + width).value !== 'bomb' &&
 		gameBoard.at(numIndex + width).revealed === false
 	) {
@@ -252,11 +261,38 @@ function flood(index) {
 	}
 }
 
+function changeDifficulty(e) {
+	switch (e.target.id) {
+		case 'easy':
+			width = 9;
+			bombsPlaced = 10;
+			boardEl.style.gridTemplateColumns = `repeat(${width}, 20px)`;
+			boardEl.style.gridTemplateRows = `repeat(${width}, 20px)`;
+			break;
+		case 'medium':
+			width = 12;
+			bombsPlaced = 17;
+			boardEl.style.gridTemplateColumns = `repeat(${width}, 20px)`;
+			boardEl.style.gridTemplateRows = `repeat(${width}, 20px)`;
+			break;
+		case 'hard':
+			width = 16;
+			bombsPlaced = 28;
+			boardEl.style.gridTemplateColumns = `repeat(${width}, 20px)`;
+			boardEl.style.gridTemplateRows = `repeat(${width}, 20px)`;
+			break;
+	}
+
+	reset();
+}
+
 function reset() {
 	boardEl.addEventListener('click', handleClick);
 	boardEl.addEventListener('contextmenu', handleRightClick);
 	messageEl.textContent = '';
 	bodyEl.style.backgroundColor = 'white';
+	boardEl.replaceChildren();
+
 	init();
 }
 

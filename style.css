@@ -20,14 +20,17 @@ button {
 }
 
 img {
-    max-width: 40px;
-    max-height: 40px;
+    margin: 0px;
+    padding: 0px;
+    max-width: 18px;
+    max-height: 18px;
+    aspect-ratio: 1;
 }
 
 .gameboard {
     display: grid;
-    grid-template-rows: auto auto auto auto auto auto auto auto auto;
-    grid-template-columns: auto auto auto auto auto auto auto auto auto;
+    grid-template-rows: repeat(9, 20px);
+    grid-template-columns: repeat(9, 20px);
     margin: 0;
     padding: 0;
     min-width: 400px;
