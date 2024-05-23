@@ -7,11 +7,18 @@ body {
 }
 
 h1 {
-    color: black;
+    margin: 5px 0px 0px;
 }
 
 h2 {
-    color: black;
+    height: fit-content;
+    width: fit-content;
+    margin: 0px;
+    padding: 5px;
+}
+
+h3 {
+    margin: 5px;
 }
 
 button {
@@ -33,7 +40,7 @@ img {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    max-width: 200px;
+    max-width: 300px;
     height: fit-content;
 }
 
@@ -58,6 +65,7 @@ img {
     margin: 0;
     padding: 0;
     border: 0px;
+    max-width: 350px;
 }
 
 .sqr {
@@ -68,8 +76,6 @@ img {
     justify-content: center;
     aspect-ratio: 1;
     background-color: rgb(95, 95, 95);
-    max-width: 50px;
-    max-height: 50px;
-    min-width: 20px;
-    min-height: 20px;
+    width: 20px;
+    height: 20px;
 }
