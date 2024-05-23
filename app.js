@@ -11,14 +11,12 @@ let bombsPlaced = 10;
 /*------------------------ Cached Element References ------------------------*/
 const bodyEl = document.querySelector('body');
 const boardEl = document.querySelector('.gameboard');
-const resetBtnEl = document.querySelector('#reset');
 const messageEl = document.querySelector('#message');
 const easyBtnEl = document.querySelector('#easy');
 const mediumBtnEl = document.querySelector('#medium');
 const hardBtnEl = document.querySelector('#hard');
 let squareEls;
 /*----------------------------- Event Listeners -----------------------------*/
-resetBtnEl.addEventListener('click', reset);
 easyBtnEl.addEventListener('click', changeDifficulty);
 mediumBtnEl.addEventListener('click', changeDifficulty);
 hardBtnEl.addEventListener('click', changeDifficulty);
