@@ -17,6 +17,7 @@ h2 {
 button {
     width: 100px;
     margin: 30px;
+    padding: 5px;
 }
 
 img {
@@ -27,14 +28,35 @@ img {
     aspect-ratio: 1;
 }
 
+#difficulty-selection {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 200px;
+    height: fit-content;
+}
+
+#difficulty-buttons {
+    width: 200px;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.difficulty {
+    margin: 5px;
+    padding: 5px 10px;
+}
+
 .gameboard {
     display: grid;
+    place-content: center / center;
     grid-template-rows: repeat(9, 20px);
     grid-template-columns: repeat(9, 20px);
     margin: 0;
     padding: 0;
-    min-width: 400px;
-    min-height: 400px;
     border: 0px;
 }
 

@@ -83,8 +83,8 @@ function updateMessage() {
 function placeBombs() {
 	let bombs = bombTotal();
 	while (bombs < bombsPlaced) {
-		let index = Math.floor(Math.random() * width * width - 1);
-		gameBoard[index].value = 'bomb';
+		const index = Math.floor(Math.random() * width * width - 1);
+		gameBoard.at(index).value = 'bomb';
 		bombs = bombTotal();
 	}
 }
@@ -197,6 +197,7 @@ function revealSquare(index) {
 }
 
 function checkForBomb(index) {
+	const numIndex = Number(index);
 	if (gameBoard[index].value === 'bomb') {
 		lost = true;
 		bodyEl.style.backgroundColor = 'red';
@@ -270,14 +271,14 @@ function changeDifficulty(e) {
 			boardEl.style.gridTemplateRows = `repeat(${width}, 20px)`;
 			break;
 		case 'medium':
-			width = 12;
-			bombsPlaced = 17;
+			width = 16;
+			bombsPlaced = 40;
 			boardEl.style.gridTemplateColumns = `repeat(${width}, 20px)`;
 			boardEl.style.gridTemplateRows = `repeat(${width}, 20px)`;
 			break;
 		case 'hard':
-			width = 16;
-			bombsPlaced = 28;
+			width = 22;
+			bombsPlaced = 80;
 			boardEl.style.gridTemplateColumns = `repeat(${width}, 20px)`;
 			boardEl.style.gridTemplateRows = `repeat(${width}, 20px)`;
 			break;
