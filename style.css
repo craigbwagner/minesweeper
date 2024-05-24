@@ -86,4 +86,8 @@ img {
 #instructions {
     max-width: 600px;
     text-align: center;
+    border: 1px solid;
+    border-radius: 3px;
+    background-color: white;
+    margin-bottom: 5px;
 }
