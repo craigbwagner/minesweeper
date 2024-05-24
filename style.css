@@ -35,23 +35,6 @@ img {
     aspect-ratio: 1;
 }
 
-#difficulty-selection {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    max-width: 300px;
-    height: fit-content;
-    margin: 3px;
-}
-
-#difficulty-buttons {
-    width: 200px;
-    height: fit-content;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
 .difficulty {
     margin: 5px;
@@ -80,4 +63,27 @@ img {
     background-color: rgb(95, 95, 95);
     width: 20px;
     height: 20px;
+}
+
+#difficulty-selection {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 300px;
+    height: fit-content;
+    margin: 3px;
+}
+
+#difficulty-buttons {
+    width: 200px;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#instructions {
+    max-width: 600px;
+    text-align: center;
 }
