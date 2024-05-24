@@ -94,7 +94,11 @@ function bombTotal() {
 	return bombs.length;
 }
 
-//functions for updating square values based on bordering bomb counts
+// borrowed and modified from this YouTube video by Ania Kubow:
+// https://www.youtube.com/watch?v=jS7iB9mRvcc
+// checks for bombs in surrounding squares, checks if a square is on an edge of the board,
+// and updates the value property for the corresponding index in the gameBoard array
+// with # of bombs counted. modified to account for different board widths
 function surroundingBombCounter() {
 	gameBoard.forEach((square, index) => {
 		if (square.value !== 'bomb') {
@@ -216,7 +220,7 @@ function checkForWin() {
 	}
 }
 
-//flooding function
+// copied and modified from the surroundingBombCounter()
 function flood(index) {
 	const isLeftEdge = index % width === 0;
 	const isRightEdge = index % width === width - 1;
