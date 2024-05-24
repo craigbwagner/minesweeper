@@ -1,7 +1,7 @@
 body {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     font-family: "Inter", sans-serif;
 }
@@ -42,6 +42,7 @@ img {
     justify-content: center;
     max-width: 300px;
     height: fit-content;
+    margin: 3px;
 }
 
 #difficulty-buttons {
@@ -59,7 +60,8 @@ img {
 
 .gameboard {
     display: grid;
-    place-content: center / center;
+    align-content: center;
+    justify-content: center;
     grid-template-rows: repeat(9, 20px);
     grid-template-columns: repeat(9, 20px);
     margin: 0;
